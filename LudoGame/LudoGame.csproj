@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEndedListener.cs" />
+    <Compile Include="ILudoPlayer.cs" />
+    <Compile Include="Ludo.cs" />
+    <Compile Include="LudoBoard.cs" />
     <Compile Include="LudoGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
