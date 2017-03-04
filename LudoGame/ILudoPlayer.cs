@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LudoGame
 {
-    public interface ILudoPlayer
+    public interface ILudoPlayer : LudoAiSDK.IAiPlugin
     {
-        void Play();
+        new void Play();
     }
 }

@@ -19,19 +19,20 @@ namespace LudoGame
         private bool brickMoved = true;
         private int dice = 0;
         private int turns = 0;
-        private String debugString = "Velcome to this LUDO simulator...";
+        private string debugString = "Welcome to this LUDO simulator...";
         //private BufferedImage boardImage, noDiceImage, dice1Image, dice2Image, dice3Image, dice4Image, dice5Image, dice6Image,
         //                redBrickImage1, redBrickImage2, redBrickImage3, redBrickImage4,
         //                blueBrickImage1, blueBrickImage2, blueBrickImage3, blueBrickImage4,
         //                yellowBrickImage1, yellowBrickImage2, yellowBrickImage3, yellowBrickImage4,
         //                greenBrickImage1, greenBrickImage2, greenBrickImage3, greenBrickImage4;
-        private int[,] bricks = { { 100, 101, 102, 103 }, { 200, 201, 202, 203 }, { 300, 301, 302, 303 }, { 400, 401, 402, 403 } };
+        private int[][] bricks = { new int[] { 100, 101, 102, 103 }, new int[] { 200, 201, 202, 203 }, new int[] { 300, 301, 302, 303 }, new int[] { 400, 401, 402, 403 } };
         private int[] startFieldSquares = { 0, 13, 26, 39 };
         private int[] endFieldSquares = { 50, 11, 24, 37 };
 
         private int[] stars = { 5, 11, 18, 24, 31, 37, 44, 50 };
         private int[] globes = { 0, 8, 13, 21, 26, 34, 39, 47 };
 
+        // painting stuff (UI stuff)
         private int[,,] startSquaresXYPos = { { { 91, 90 }, { 192, 90 }, { 90, 193 }, { 190, 193 } }, { { 563, 92 }, { 662, 88 }, { 564, 193 }, { 659, 194 } }, { { 563, 568 }, { 663, 568 }, { 562, 669 }, { 663, 669 } }, { { 93, 569 }, { 190, 568 }, { 91, 667 }, { 190, 668 } } };
         private int[,] fieldSquaresXYPos = { { 92, 328 }, { 140, 329 }, { 190, 330 }, { 236, 330 }, { 286, 331 }, { 329, 289 }, { 329, 238 }, { 329, 190 }, { 329, 141 }, { 327, 90 }, { 329, 38 }, { 376, 35 }, { 427, 35 }, { 428, 86 }, { 429, 136 }, { 427, 187 }, { 426, 235 }, { 427, 289 }, { 470, 330 }, { 514, 329 }, { 561, 330 }, { 611, 328 }, { 657, 332 }, { 713, 329 }, { 716, 380 }, { 715, 430 }, { 662, 431 }, { 616, 431 }, { 568, 431 }, { 516, 430 }, { 469, 430 }, { 431, 470 }, { 423, 516 }, { 431, 562 }, { 428, 621 }, { 430, 667 }, { 426, 718 }, { 376, 721 }, { 330, 722 }, { 326, 669 }, { 329, 622 }, { 331, 572 }, { 330, 517 }, { 328, 472 }, { 292, 435 }, { 240, 432 }, { 197, 436 }, { 145, 434 }, { 92, 436 }, { 40, 434 }, { 39, 384 }, { 42, 332 } };
         private int[,,] homeSquaresXYPos = { { { 90, 378 }, { 140, 380 }, { 192, 382 }, { 242, 380 }, { 288, 380 }, { 340, 380 } }, { { 378, 90 }, { 376, 140 }, { 378, 186 }, { 378, 240 }, { 380, 292 }, { 378, 344 } }, { { 666, 380 }, { 616, 378 }, { 568, 380 }, { 516, 378 }, { 466, 378 }, { 414, 376 } }, { { 380, 670 }, { 378, 618 }, { 380, 570 }, { 380, 516 }, { 380, 468 }, { 378, 422 } } };
@@ -59,15 +60,15 @@ namespace LudoGame
             currentColor = startColor;
             turns = 3;
             //yellowPlayer = new ManualLUDOPlayer(this);
-            //yellowPlayer  = new SemiSmartLUDOPlayer(this);
-            //redPlayer = new RandomLUDOPlayer(this);
-            //bluePlayer = new AggressiveLUDOPlayer(this);
-            //greenPlayer = new PacifisticLUDOPlayer(this);
+            yellowPlayer  = new RandomLudoPlayer(this);
+            redPlayer = new RandomLudoPlayer(this);
+            bluePlayer = new RandomLudoPlayer(this);
+            greenPlayer = new RandomLudoPlayer(this);
             //redPlayer = new SemiSmartLUDOPlayer(this);
             //bluePlayer = new SemiSmartLUDOPlayer(this);
             //greenPlayer = new SemiSmartLUDOPlayer(this);
 
-            int[,] temp = { { 100, 101, 102, 103 }, { 200, 201, 202, 203 }, { 300, 301, 302, 303 }, { 400, 401, 402, 403 } };
+            int[][] temp = { new int[] { 100, 101, 102, 103 }, new int[] { 200, 201, 202, 203 }, new int[] { 300, 301, 302, 303 }, new int[] { 400, 401, 402, 403 } };
             bricks = temp;
             int[] temp2 = { 0, 0, 0, 0 };
             turnsCounter = temp2;
@@ -286,11 +287,11 @@ namespace LudoGame
 
         public bool moveable(int nr)
         {
-            if (inStartArea(bricks[currentColor,nr], currentColor) && dice != 6)
+            if (inStartArea(bricks[currentColor][nr], currentColor) && dice != 6)
             {
                 return false;
             }
-            if (atHome(bricks[currentColor,nr], currentColor))
+            if (atHome(bricks[currentColor][nr], currentColor))
             {
                 return false;
             }
@@ -299,7 +300,7 @@ namespace LudoGame
 
         public bool isDone(int color)
         {
-            return atHome(bricks[color,0], color) && atHome(bricks[color,1], color) && atHome(bricks[color,2], color) && atHome(bricks[color,3], color);
+            return atHome(bricks[color][0], color) && atHome(bricks[color][1], color) && atHome(bricks[color][2], color) && atHome(bricks[color][3], color);
         }
 
         public int getDice()
@@ -315,23 +316,23 @@ namespace LudoGame
                 print("You must roll the dice before moving");
                 return false;
             }
-            int index = bricks[currentColor,nr];
+            int index = bricks[currentColor][nr];
             /*Moving out of the start area*/
             if (inStartArea(index, currentColor))
             {
                 if (dice == 6)
                 {
                     //animateMove(currentColor, nr, bricks[currentColor][nr], startFieldSquares[currentColor]);
-                    bricks[currentColor,nr] = startFieldSquares[currentColor];
+                    bricks[currentColor][nr] = startFieldSquares[currentColor];
                     //				Hit opponent home from "my" globe
                     for (int i = 0; i < 4; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (bricks[i,j] == bricks[currentColor,nr] && i != currentColor)
+                            if (bricks[i][j] == bricks[currentColor][nr] && i != currentColor)
                             {
                                 //animateMove(i, j, bricks[i][j], (i + 1) * 100 + j);
-                                bricks[i,j] = (i + 1) * 100 + j;
+                                bricks[i][j] = (i + 1) * 100 + j;
                             }
                         }
                     }
@@ -369,7 +370,7 @@ namespace LudoGame
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        if (bricks[i,j] == moveToIndex && i != currentColor)
+                        if (bricks[i][j] == moveToIndex && i != currentColor)
                         {
                             //someone needs to be hit home
                             if (isGlobe(moveToIndex))
@@ -385,12 +386,12 @@ namespace LudoGame
                             else
                             { // I hit him home
                                 //animateMove(i, j, bricks[i][j], (i + 1) * 100 + j);
-                                bricks[i,j] = (i + 1) * 100 + j;
+                                bricks[i][j] = (i + 1) * 100 + j;
                             }
                         }
                     }
                 }
-                bricks[currentColor,nr] = moveToIndex;
+                bricks[currentColor][nr] = moveToIndex;
                 brickMoved = true;
                 if (dice == 6) turns = 1;
                 else turns = 0;
@@ -407,19 +408,19 @@ namespace LudoGame
                 if (index < 51)
                 { /*still on the field*/
                     //animateMove(currentColor, nr, bricks[currentColor][nr], (index + dice) - (1 + endFieldSquares[currentColor]) + ((1 + currentColor) * 100 + 4));
-                    bricks[currentColor,nr] = (index + dice) - (1 + endFieldSquares[currentColor]) + ((1 + currentColor) * 100 + 4);
+                    bricks[currentColor][nr] = (index + dice) - (1 + endFieldSquares[currentColor]) + ((1 + currentColor) * 100 + 4);
                 }
                 else
                 {
                     if ((index + dice) > ((1 + currentColor) * 100 + 9))
                     {
                         //animateMove(currentColor, nr, bricks[currentColor][nr], 2 * ((1 + currentColor) * 100 + 9) - (index + dice));
-                        bricks[currentColor,nr] = 2 * ((1 + currentColor) * 100 + 9) - (index + dice);
+                        bricks[currentColor][nr] = 2 * ((1 + currentColor) * 100 + 9) - (index + dice);
                     }
                     else
                     {
                         //animateMove(currentColor, nr, bricks[currentColor][nr], (index + dice));
-                        bricks[currentColor,nr] = (index + dice);
+                        bricks[currentColor][nr] = (index + dice);
                     }
                 }
                 brickMoved = true;
@@ -476,25 +477,25 @@ namespace LudoGame
         //    }
         //}
 
-        public int[,] getNewBoardState(int nr, int color, int dice2)
+        public int[][] getNewBoardState(int nr, int color, int dice2)
         {
             int new_turns = -1;
-            int[,] new_bricks_state = getBoardState();
-            int index = new_bricks_state[color,nr];
+            int[][] new_bricks_state = getBoardState();
+            int index = new_bricks_state[color][nr];
 
             /*Moving out of the start area*/
             if (inStartArea(index, color))
             {
                 if (dice2 == 6)
                 {
-                    new_bricks_state[color,nr] = startFieldSquares[color];
+                    new_bricks_state[color][nr] = startFieldSquares[color];
                     for (int i = 0; i < 4; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (new_bricks_state[i,j] == new_bricks_state[color,nr] && i != color)
+                            if (new_bricks_state[i][j] == new_bricks_state[color][nr] && i != color)
                             {
-                                new_bricks_state[i,j] = (i + 1) * 100 + j; //Hit opponent home from "my" globe
+                                new_bricks_state[i][j] = (i + 1) * 100 + j; //Hit opponent home from "my" globe
                             }
                         }
                     }
@@ -517,7 +518,7 @@ namespace LudoGame
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        if (new_bricks_state[i,j] == moveToIndex && i != color)
+                        if (new_bricks_state[i][j] == moveToIndex && i != color)
                         {
                             //someone needs to be hit home
                             if (isGlobe(moveToIndex))
@@ -530,12 +531,12 @@ namespace LudoGame
                             }
                             else
                             { // I hit him home
-                                new_bricks_state[i,j] = (i + 1) * 100 + j;
+                                new_bricks_state[i][j] = (i + 1) * 100 + j;
                             }
                         }
                     }
                 }
-                new_bricks_state[color,nr] = moveToIndex;
+                new_bricks_state[color][nr] = moveToIndex;
                 if (dice2 == 6) new_turns = 1;
                 else new_turns = 0;
                 return new_bricks_state;
@@ -548,15 +549,15 @@ namespace LudoGame
                 }
                 if (index < 51)
                 { /*still on the field*/
-                    new_bricks_state[color,nr] = (index + dice2) - (1 + endFieldSquares[color]) + ((1 + color) * 100 + 4);
+                    new_bricks_state[color][nr] = (index + dice2) - (1 + endFieldSquares[color]) + ((1 + color) * 100 + 4);
                 }
                 else
                 {
                     if ((index + dice2) > ((1 + color) * 100 + 9))
                     {
-                        new_bricks_state[color,nr] = 2 * ((1 + color) * 100 + 9) - (index + dice2);
+                        new_bricks_state[color][nr] = 2 * ((1 + color) * 100 + 9) - (index + dice2);
                     }
-                    else new_bricks_state[color,nr] = (index + dice2);
+                    else new_bricks_state[color][nr] = (index + dice2);
                 }
                 if (dice2 == 6)
                 {
@@ -570,13 +571,13 @@ namespace LudoGame
             }
         }
 
-        public int[,] getNewBoardState(int[,] boardState, int nr, int color, int dice2)
+        public int[][] getNewBoardState(int[][] boardState, int nr, int color, int dice2)
         {
             int new_turns = -1;
-            int[,] new_bricks_state = (int[,])boardState.Clone();
+            int[][] new_bricks_state = (int[][])boardState.Clone();
             for (int i = 0; i < new_bricks_state.Length; ++i)
             {
-                new_bricks_state[i] = (int[])boardState[i].clone();
+                new_bricks_state[i] = (int[])boardState[i].Clone();
             }
             int index = new_bricks_state[color][nr];
 
@@ -585,14 +586,14 @@ namespace LudoGame
             {
                 if (dice2 == 6)
                 {
-                    new_bricks_state[color,nr] = startFieldSquares[color];
+                    new_bricks_state[color][nr] = startFieldSquares[color];
                     for (int i = 0; i < 4; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (new_bricks_state[i,j] == new_bricks_state[color,nr] && i != color)
+                            if (new_bricks_state[i][j] == new_bricks_state[color][nr] && i != color)
                             {
-                                new_bricks_state[i,j] = (i + 1) * 100 + j; //Hit opponent home from "my" globe
+                                new_bricks_state[i][j] = (i + 1) * 100 + j; //Hit opponent home from "my" globe
                             }
                         }
                     }
@@ -615,7 +616,7 @@ namespace LudoGame
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        if (new_bricks_state[i,j] == moveToIndex && i != color)
+                        if (new_bricks_state[i][j] == moveToIndex && i != color)
                         {
                             //someone needs to be hit home
                             if (isGlobe(moveToIndex))
@@ -628,12 +629,12 @@ namespace LudoGame
                             }
                             else
                             { // I hit him home
-                                new_bricks_state[i,j] = (i + 1) * 100 + j;
+                                new_bricks_state[i][j] = (i + 1) * 100 + j;
                             }
                         }
                     }
                 }
-                new_bricks_state[color,nr] = moveToIndex;
+                new_bricks_state[color][nr] = moveToIndex;
                 if (dice2 == 6) new_turns = 1;
                 else new_turns = 0;
                 return new_bricks_state;
@@ -646,15 +647,15 @@ namespace LudoGame
                 }
                 if (index < 51)
                 { /*still on the field*/
-                    new_bricks_state[color,nr] = (index + dice2) - (1 + endFieldSquares[color]) + ((1 + color) * 100 + 4);
+                    new_bricks_state[color][nr] = (index + dice2) - (1 + endFieldSquares[color]) + ((1 + color) * 100 + 4);
                 }
                 else
                 {
                     if ((index + dice2) > ((1 + color) * 100 + 9))
                     {
-                        new_bricks_state[color,nr] = 2 * ((1 + color) * 100 + 9) - (index + dice2);
+                        new_bricks_state[color][nr] = 2 * ((1 + color) * 100 + 9) - (index + dice2);
                     }
-                    else new_bricks_state[color,nr] = (index + dice2);
+                    else new_bricks_state[color][nr] = (index + dice2);
                 }
                 if (dice2 == 6)
                 {
@@ -668,14 +669,14 @@ namespace LudoGame
             }
         }
 
-        private int countBricksOn(int[,] boardState, int index)
+        private int countBricksOn(int[][] boardState, int index)
         {
             int count = 0;
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (boardState[i,j] == index) count++;
+                    if (boardState[i][j] == index) count++;
                 }
             }
             return count;
@@ -688,7 +689,7 @@ namespace LudoGame
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (bricks[i,j] == index) count++;
+                    if (bricks[i][j] == index) count++;
                 }
             }
             return count;
@@ -703,14 +704,14 @@ namespace LudoGame
             return 0;
         }
 
-        public int[,] getBoardState()
+        public int[][] getBoardState()
         {
-            int[,] bs = new int[4,4];
+            int[][] bs = new int[4][];
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    bs[i,j] = bricks[i,j];
+                    bs[i][j] = bricks[i][j];
                 }
             }
             return bs;
@@ -768,10 +769,10 @@ namespace LudoGame
         private void nextPlayer()
         {
             currentColor = (currentColor + 1) % 4;
-            if (!inPlay(bricks[currentColor,0], currentColor) &&
-                    !inPlay(bricks[currentColor,1], currentColor) &&
-                    !inPlay(bricks[currentColor,2], currentColor) &&
-                    !inPlay(bricks[currentColor,3], currentColor))
+            if (!inPlay(bricks[currentColor][0], currentColor) &&
+                    !inPlay(bricks[currentColor][1], currentColor) &&
+                    !inPlay(bricks[currentColor][2], currentColor) &&
+                    !inPlay(bricks[currentColor][3], currentColor))
             {
                 turns = 3;
             }
@@ -787,10 +788,10 @@ namespace LudoGame
         public int[] getMyBricks()
         {
             int[] b = new int[4];
-            b[0] = bricks[currentColor,0];
-            b[1] = bricks[currentColor,1];
-            b[2] = bricks[currentColor,2];
-            b[3] = bricks[currentColor,3];
+            b[0] = bricks[currentColor][0];
+            b[1] = bricks[currentColor][1];
+            b[2] = bricks[currentColor][2];
+            b[3] = bricks[currentColor][3];
             return b;
         }
 

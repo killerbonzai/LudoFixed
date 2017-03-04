@@ -8,6 +8,6 @@ namespace LudoAiSDK
 {
     public interface IAiPlugin
     {
-        void Play(LudoGame.LudoGame LudoBoard); // done? :) fix senere til noget interface? andet?
+        void Play(); // done? :) fix senere til noget interface? andet?
     }
 }

@@ -16,9 +16,12 @@ namespace LudoGame
         {
             board = new LudoBoard();
             //setVisible(visual);
+            // this is where Adam does some UI stuff. Like add a menu and add the board to the center of the window
+
             play();
         }
 
+        // this was used for the Reset Game menu button in the UI
         //public void actionPerformed(ActionEvent event)
         //{
         //    if (event.getActionCommand()=="Reset Game")
@@ -33,11 +36,11 @@ namespace LudoGame
             //long time = System.currentTimeMillis();
             int[] result = new int[4];
             //board.setPlayer(new ManualLUDOPlayer(board), LudoBoard.YELLOW);
-            //board.setPlayer(new RandomLUDOPlayer(board),LudoBoard.YELLOW);
+            board.setPlayer(new RandomLudoPlayer(board),LudoBoard.YELLOW);
             //board.setPlayer(new MinLUDOPlayer(board), LudoBoard.YELLOW);
-            //board.setPlayer(new SemiSmartLUDOPlayer(board), LudoBoard.RED);
-            //board.setPlayer(new FifoLUDOPlayer(board), LudoBoard.BLUE);
-            //board.setPlayer(new AndersLUDOPlayer(board), LudoBoard.GREEN);
+            board.setPlayer(new RandomLudoPlayer(board), LudoBoard.RED);
+            board.setPlayer(new RandomLudoPlayer(board), LudoBoard.BLUE);
+            board.setPlayer(new RandomLudoPlayer(board), LudoBoard.GREEN);
             try
             {
                 for (int i = 0; i < 1000; i++)
@@ -45,16 +48,16 @@ namespace LudoGame
                     board.play();
                     board.kill();
 
-                    //result[0] += board.getPoints()[0];
-                    //result[1] += board.getPoints()[1];
-                    //result[2] += board.getPoints()[2];
-                    //result[3] += board.getPoints()[3];
+                    result[0] += board.getPoints()[0];
+                    result[1] += board.getPoints()[1];
+                    result[2] += board.getPoints()[2];
+                    result[3] += board.getPoints()[3];
 
                     board.reset();
-                    //board.setPlayer(new MinLUDOPlayer(board), LudoBoard.YELLOW);
-                    //board.setPlayer(new SemiSmartLUDOPlayer(board), LudoBoard.RED);
-                    //board.setPlayer(new FifoLUDOPlayer(board), LudoBoard.BLUE);
-                    //board.setPlayer(new AndersLUDOPlayer(board), LudoBoard.GREEN);
+                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.YELLOW);
+                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.RED);
+                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.BLUE);
+                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.GREEN);
                     //if ((i % 500) == 0) System.out.print(".");
                 }
             }
