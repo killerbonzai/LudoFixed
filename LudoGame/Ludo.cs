@@ -38,9 +38,9 @@ namespace LudoGame
             //board.setPlayer(new ManualLUDOPlayer(board), LudoBoard.YELLOW);
             board.setPlayer(new RandomLudoPlayer(board),LudoBoard.YELLOW);
             //board.setPlayer(new MinLUDOPlayer(board), LudoBoard.YELLOW);
-            board.setPlayer(new RandomLudoPlayer(board), LudoBoard.RED);
+            board.setPlayer(new FifoLudoPlayer(board), LudoBoard.RED);
             board.setPlayer(new RandomLudoPlayer(board), LudoBoard.BLUE);
-            board.setPlayer(new RandomLudoPlayer(board), LudoBoard.GREEN);
+            board.setPlayer(new FifoLudoPlayer(board), LudoBoard.GREEN);
             try
             {
                 for (int i = 0; i < 1000; i++)
@@ -55,9 +55,9 @@ namespace LudoGame
 
                     board.reset();
                     board.setPlayer(new RandomLudoPlayer(board), LudoBoard.YELLOW);
-                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.RED);
+                    board.setPlayer(new FifoLudoPlayer(board), LudoBoard.RED);
                     board.setPlayer(new RandomLudoPlayer(board), LudoBoard.BLUE);
-                    board.setPlayer(new RandomLudoPlayer(board), LudoBoard.GREEN);
+                    board.setPlayer(new FifoLudoPlayer(board), LudoBoard.GREEN);
                     //if ((i % 500) == 0) System.out.print(".");
                 }
             }
