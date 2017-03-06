@@ -52,6 +52,7 @@ namespace LudoGame
         public LudoBoard()
         {
             // do stuff...?
+            reset();
         }
 
         public void reset()

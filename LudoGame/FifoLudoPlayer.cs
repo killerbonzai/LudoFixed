@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LudoGame
 {
-    class FifoLudoPlayer : ILudoPlayer
+    public class FifoLudoPlayer : ILudoPlayer
     {
         LudoBoard board;
 

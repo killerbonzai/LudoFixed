@@ -10,7 +10,7 @@ namespace LudoGame
     public class Ludo
     {
         private static LudoBoard board;
-        public static bool visual = true;
+        public static bool visual = false;
 
         public Ludo()
         {

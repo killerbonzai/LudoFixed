@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LudoGame
 {
-    class RandomLudoPlayer : ILudoPlayer
+    public class RandomLudoPlayer : ILudoPlayer
     {
         LudoBoard board;
         Random rand;
