@@ -40,13 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggressiveLudoPlayer.cs" />
     <Compile Include="FifoLudoPlayer.cs" />
     <Compile Include="GameEndedListener.cs" />
     <Compile Include="ILudoPlayer.cs" />
     <Compile Include="Ludo.cs" />
     <Compile Include="LudoBoard.cs" />
+    <Compile Include="ManualLudoPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomLudoPlayer.cs" />
+    <Compile Include="SemiSmartLudoPlayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

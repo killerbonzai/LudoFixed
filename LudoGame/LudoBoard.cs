@@ -25,7 +25,7 @@ namespace LudoGame
         //                blueBrickImage1, blueBrickImage2, blueBrickImage3, blueBrickImage4,
         //                yellowBrickImage1, yellowBrickImage2, yellowBrickImage3, yellowBrickImage4,
         //                greenBrickImage1, greenBrickImage2, greenBrickImage3, greenBrickImage4;
-        private int[][] bricks = { new int[] { 100, 101, 102, 103 }, new int[] { 200, 201, 202, 203 }, new int[] { 300, 301, 302, 303 }, new int[] { 400, 401, 402, 403 } };
+        private int[][] bricks = new int[][] { new int[] { 100, 101, 102, 103 }, new int[] { 200, 201, 202, 203 }, new int[] { 300, 301, 302, 303 }, new int[] { 400, 401, 402, 403 } };
         private int[] startFieldSquares = { 0, 13, 26, 39 };
         private int[] endFieldSquares = { 50, 11, 24, 37 };
 
@@ -48,11 +48,31 @@ namespace LudoGame
         private int point = 3;
         private int[] points = new int[4];
         private int startColor = YELLOW;
+        public List<ILudoPlayer> GetPlayerList { get; private set; }
 
         public LudoBoard()
         {
             // do stuff...?
+            FixGetPlayerList();
             reset();
+        }
+
+        private void FixGetPlayerList()
+        {
+            if (GetPlayerList == null)
+            {
+                GetPlayerList = new List<ILudoPlayer>();
+                // fill list
+                // add standard Players
+                GetPlayerList.Add(new FifoLudoPlayer(this));
+                GetPlayerList.Add(new RandomLudoPlayer(this));
+                GetPlayerList.Add(new SemiSmartLudoPlayer(this));
+                GetPlayerList.Add(new AggressiveLudoPlayer(this));
+                //GetPlayerList.Add(new ManualLudoPlayer(this)); // not working atm
+
+                // add custom ai/players
+                // 'plugin' system?
+            }
         }
 
         public void reset()
@@ -60,14 +80,10 @@ namespace LudoGame
             if (rand == null) rand = new Random();
             currentColor = startColor;
             turns = 3;
-            //yellowPlayer = new ManualLUDOPlayer(this);
             yellowPlayer  = new RandomLudoPlayer(this);
             redPlayer = new RandomLudoPlayer(this);
             bluePlayer = new RandomLudoPlayer(this);
             greenPlayer = new RandomLudoPlayer(this);
-            //redPlayer = new SemiSmartLUDOPlayer(this);
-            //bluePlayer = new SemiSmartLUDOPlayer(this);
-            //greenPlayer = new SemiSmartLUDOPlayer(this);
 
             int[][] temp = { new int[] { 100, 101, 102, 103 }, new int[] { 200, 201, 202, 203 }, new int[] { 300, 301, 302, 303 }, new int[] { 400, 401, 402, 403 } };
             bricks = temp;
@@ -92,6 +108,14 @@ namespace LudoGame
                 case GREEN: greenPlayer = player;
                     break;
             }
+        }
+
+        public void setAllPlayers(ILudoPlayer yellow, ILudoPlayer red, ILudoPlayer blue, ILudoPlayer green)
+        {
+            yellowPlayer = yellow;
+            redPlayer = red;
+            bluePlayer = blue;
+            greenPlayer = green;
         }
 
         #region paint stuff ++ fix stuff? need stuff?
@@ -707,7 +731,7 @@ namespace LudoGame
 
         public int[][] getBoardState()
         {
-            int[][] bs = new int[4][];
+            int[][] bs = new int[4][] { new int[4] { 0, 0, 0, 0 }, new int[4] { 0, 0, 0, 0 }, new int[4] { 0, 0, 0, 0 }, new int[4] { 0, 0, 0, 0 } };
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)

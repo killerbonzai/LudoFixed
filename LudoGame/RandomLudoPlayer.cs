@@ -17,6 +17,11 @@ namespace LudoGame
             rand = new Random();
         }
 
+        public string PlayerName()
+        {
+            return "RandomLudoPlayer";
+        }
+
         public void Play()
         {
             board.print("Random player playing");

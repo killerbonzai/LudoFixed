@@ -8,6 +8,7 @@ namespace LudoGame
 {
     public interface ILudoPlayer
     {
+        string PlayerName();
         void Play();
     }
 }

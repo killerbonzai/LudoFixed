@@ -15,6 +15,11 @@ namespace LudoGame
             this.board = bord;
         }
 
+        public string PlayerName()
+        {
+            return "FifoLudoPlayer";
+        }
+
         public void Play()
         {
             board.print("Fifo player playing");
